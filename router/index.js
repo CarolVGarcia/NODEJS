@@ -31,6 +31,8 @@ router.get("/cotizacion", (req, res) => {
       valor: req.query.valor,
       pInicial: req.query.pInicial,
       plazos: req.query.plazos,
+      folio: req.query.folio,
+      descripcion: req.query.descripcion,
     };
     res.render("cotizacion", params);
   });
@@ -40,6 +42,8 @@ router.get("/cotizacion", (req, res) => {
       valor: req.body.valor,
       pInicial: req.body.pInicial,
       plazos: req.body.plazos,
+      folio: req.body.folio,
+      descripcion: req.body.descripcion,
     };
     res.render("cotizacion", params);
   });

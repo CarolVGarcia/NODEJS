@@ -1,46 +1,161 @@
-<%- include('partials/header.ejs') %> <%- include('partials/nav.ejs') %>
-<section>
-  <form class="formulario" action="/cotizacion" method="post">
-    <div class="input-container">
-        <label for="">Valor de Automovil</label>
-        <input type="number" name="valor" id="valor" required value="<%=valor%>" />
-    </div>
-    <div>
-        <label for="">Porcentaje de pago inicial</label>
-        <input type="number" name="pInicial" id="pInicial"  required value="<%=pInicial%>"/>
-    </div>
-    <div>
-        <label for="">Plazo en meses</label>
-        <select class="" name="plazos" id="plazos"  required value="<%=plazos%>">
-          <option value="12">12 meses</option>
-          <option value="24">24 meses</option>
-          <option value="36">36 meses</option>
-          <option value="48">48 meses</option>
-          <option value="60">60 meses</option>
-        </select>
-    </div>
-    <div class="buttons-container">
-        <button type="submit">Calcular</button>
-        <button><a href="/cotizacion">Limpiar</a></button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practica - Cotizacion</title>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
 
-    </div>
-  </form>
-  <div class="res-container">
-    <h3>Resultado de la cotizacion</h3>
-        <%
-        if(valor){
-            pInicial = valor * (pInicial / 100);
-            let cuota = (valor - pInicial) / plazos;
-            cuota = cuota.toFixed(2);
-            %>
-            <h5>Pago inicial: $<%=pInicial%> </h5>
-            <h5>Total a financiar:  $<%=valor%> </h5>
-            <h5>Plazos a meses: <%=plazos%> meses</h5>
-            <h5>El valor de la cuota mensual es:  $<%=cuota%> </h5>
-            <%
-      }
-    %>        
-    
-  </div>
-</section>
-<%- include('partials/footer.ejs') %>
+    /* Estilos para los botones */
+    .buttons-container {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 20px;
+    }
+
+    .buttons-container button {
+      margin-right: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #444;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .buttons-container button:hover {
+      background-color: #666;
+    }
+
+    /* Estilos para el formulario */
+    .formulario {
+      display: flex;
+      background-color: #333;
+      color: #fff;
+      border: solid 1px black;
+      padding: 20px;
+      border-radius: 5px;
+      width: min(700px, 90%);
+      margin: 20px auto;
+      gap: 20px;
+    }
+
+    .input-container {
+      flex: 1;
+    }
+
+    /* Estilos para el contenedor de resultados */
+    .res-container {
+      background-color: #333;
+      color: #fff;
+      border: solid 1px black;
+      padding: 20px;
+      border-radius: 5px;
+      width: min(500px, 90%);
+      margin: 20px auto;
+    }
+
+    /* Estilos para los contenedores izquierdo y derecho */
+    .left-container,
+    .right-container {
+      flex: 1;
+      padding: 10px;
+    }
+
+    .left-container {
+      border-right: 1px solid #666;
+    }
+
+    /* Estilos para los títulos */
+    h2,
+    h3 {
+      margin-top: 0;
+      color: #fff;
+    }
+
+    /* Estilos para los elementos internos */
+    label,
+    input,
+    select {
+      margin-bottom: 10px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <%- include('partials/header.ejs') %> 
+  <%- include('partials/nav.ejs') %>
+  <section>
+    <form class="formulario" action="/cotizacion" method="post">
+      <div class="left-container">
+        <h2>Realizar Cotización</h2>
+        <div class="input-container">
+          <label for="folio">Número de folio</label>
+          <input type="text" name="folio" id="folio" required value="<%=folio%>"/>
+        </div>
+        <div class="input-container">
+          <label for="descripcion">Descripción</label>
+          <input type="text" name="descripcion" id="descripcion" required value="<%=descripcion%>"/>
+        </div>
+        <div class="input-container">
+          <label for="valor">Valor de Automovil</label>
+          <input type="number" name="valor" id="valor" required value="<%=valor%>" />
+        </div>
+        <div class="input-container">
+          <label for="pInicial">Porcentaje de pago inicial</label>
+          <input type="number" name="pInicial" id="pInicial"  required value="<%=pInicial%>"/>
+        </div>
+        <div class="input-container">
+          <label for="plazos">Plazo en meses</label>
+          <select class="" name="plazos" id="plazos"  required value="<%=plazos%>">
+            <option value="12">12 meses</option>
+            <option value="24">24 meses</option>
+            <option value="36">36 meses</option>
+            <option value="48">48 meses</option>
+            <option value="60">60 meses</option>
+          </select>
+        </div>
+        <div class="buttons-container">
+          <button type="submit">Calcular</button>
+          <button><a href="/cotizacion">Limpiar</a></button>
+        </div>
+      </div>
+      <div class="right-container">
+        <div class="res-container">
+          <h3>Resultado de la cotización</h3>
+          <%
+          if(valor){
+              pInicial = valor * (pInicial / 100);
+              let cuota = (valor - pInicial) / plazos;
+              cuota = cuota.toFixed(2);
+              %>
+              <h5>Folio:  <%=folio%></h5>
+              <br>
+              <h5>Descripcion:  <%=descripcion%></h5>
+              <br>
+              <h5>Pago inicial: <%=pInicial%> </h5>
+              <br>
+              <h5>Total a financiar:  <%=valor%> </h5>
+              <br>
+              <h5>Plazos a meses: <%=plazos%> meses</h5>
+              <br>
+              <h5>El valor de la cuota mensual es:  <%=cuota%> </h5>
+
+              <%
+        }
+        %>        
+        </div>
+      </div>
+    </form>
+  </section>
+  <%- include('partials/footer.ejs') %>
+</body>
+</html>
+

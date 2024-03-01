@@ -48,7 +48,16 @@ router.get("/cotizacion", (req, res) => {
     res.render("cotizacion", params);
   });
   
+router.post('/tabla',(req,res)=>{
 
+})
+let rows;
+
+router.get('/alumnos',async(req,res)=>{
+
+    rows = await alumnosDb.mostrarTodos();
+    res.render('alumnos',{reg:rows});
+})
 
 
 

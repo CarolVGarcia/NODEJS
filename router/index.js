@@ -53,19 +53,31 @@ router.post('/tabla',(req,res)=>{
 })
 let rows;
 
-router.get('/alumnos',async(req,res)=>{
-
-    rows = await alumnosDb.mostrarTodos();
+router.get('/alumnos',async(reg,res)=>{
+    rows = await alumnoDb.mostrarTodos();
     res.render('alumnos',{reg:rows});
-})
+});
 
+let params;
 
+router.post('/alumnos',async(req,res)=>{
+    try{
+        params = {
+            matricula:req.body.matricula,
+            nombre:req.body.nombre,
+            domicilio:req.body.domicilio,
+            sexo:req.body.sexo,
+            especialidad:req.body.especialidad
+        }
+       const res = await alumnoDb.insertar(params);
+    }catch(error){
+        console.error(error)
+        res.status(400).send("Sucedio un error: " + error);
+    }
 
-
-
-
-
-
+    rows = await alumnoDb.mostrarTodos();
+    res.render('alumnos',{reg:rows});
+});
 
 export default {router}
 

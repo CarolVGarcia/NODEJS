@@ -1,43 +1,43 @@
+import { resolve } from "path";
 import conexion from "./conexion.js";
+import { request } from "http";
+import { rejects } from "assert";
 
-var alumnosoBd = {}
-alumnosoBd.insertar = function insertar(alumno) {
-
-    return new Promise((resolve, reject) => {
-
-        //Consulta
-        let sqlConsulta = `Insert into alumnos set ?`;
-        conexion.query(sqlConsulta, alumno, function(err, res) {
-
-        if(err) {
-            console.log(`Surgio un error`, err.message);
-            rejects(err);
-        } else {
-            const alumno = {
-                id: res.id,
-
+var alumnoDb = {}
+alumnoDb.insertar = function insertar(alumno){
+    return new Promise((resolve,rejects)=>{
+        //consulta
+        let sqlConsulta = "Insert into alumnos set ?";
+        conexion.query(sqlConsulta,alumno,function(err,res){
+            if(err){
+                console.log("Surgió un error: " + err.message);
+                rejects(err);
             }
+            else{
+                const alumno = {
+                    id:res.id,
 
-            resolve(alumno);
-        }
+                }
+                resolve(alumno);
+            }
         });
-    }); 
+    });
 }
 
-alumnosDb.mostrarTodos = function mostrarTodos(){
-    
-    return new Promise((resolve, rejects)=>{
-        let sqConsulta = "select * from alumnos"
-        conexion.query(sqConsulta, null, function(err,res){
+alumnoDb.mostrarTodos = function(){
+    return new Promise((resolve,rejects)=>{
+        let sqlConsulta = "Select * from alumnos";
+        conexion.query(sqlConsulta,null,function(err,res){
             if(err){
-                console.log("surgio un error", err);
+                console.log("Ocurrio un error: ", err);
                 rejects(err);
-            }else{
+            }
+            else{
                 resolve(res);
             }
-            
-        })
-
-    })
+        });
+    });
 }
 
+
+export default alumnoDb;

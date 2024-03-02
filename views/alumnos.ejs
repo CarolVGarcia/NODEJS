@@ -24,23 +24,25 @@
                 <th scope="col">Sexo</th>
                 <th scope="col">Especialidad</th>
             </tr>
+            <%
+            for(var i=0;i<reg.length;++i){ %>  
+                <tr>
+                    <td><%=reg[i].idalumnos %></td>
+                    <td><%=reg[i].matricula %></td>
+                    <td><%=reg[i].nombre %></td>
+                    <td><%=reg[i].domicilio %></td>
+                    <td><%=reg[i].sexo %></td>
+                    <td><%=reg[i].especialidad %></td>
+                </tr>
+            <%
+            }
+            %>
+
         </table>
 
     </div>
 
-
 </section>
-<%
-for(var i=0; i<reg.length; ++i){%>
-    <tr>
-    <td><%=reg[i].idalumnos %></td>
-    <td><%=reg[i].matricula %></td>
-    <td><%=reg[i].nombre %></td>
-    <td><%=reg[i].domicilio %></td>
-    <td><%=reg[i].sexo %></td>
-    <td><%=reg[i].especialidad%></td>
-    </tr>
-    <%
-    }
-    %>
-    
+
+
+<%-include('partials/footer.ejs')%>

@@ -75,9 +75,7 @@ router.post('/alumnos',async(req,res)=>{
         console.error(error)
         res.status(400).send("Sucedio un error: " + error);
     }
-
-    rows = await alumnoDb.mostrarTodos();
-    res.render('alumnos',{reg:rows});
+    res.redirect('/alumnos');
 });
 
 export default {router}

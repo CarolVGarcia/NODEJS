@@ -1,5 +1,6 @@
 import express from 'express';
 import json from 'body-parser';
+import alumnoDb from '../models/alumnos.js';
 
 export const router = express.Router();
 
